@@ -9,7 +9,7 @@ saving its data to a file.
 """
 import os
 
-DATA_FILE = "study_log.txt"
+DATA_FILE = "/Users/user/My Drive/Personal/Victoria University/Course Work/ProgrammingFundamentals/study_log.txt"
 FIELD_SEP = "|"  # separator used when saving/loading records to/from the file
 
 
@@ -57,11 +57,9 @@ def load_sessions():
     line is malformed, that is handled gracefully rather than crashing.
     """
     sessions = []
-
     if not os.path.exists(DATA_FILE):
         # First run - there's simply nothing to load yet.
         return sessions
-
     try:
         with open(DATA_FILE, "r", encoding="utf-8") as f:
             for line_number, raw_line in enumerate(f, start=1):
@@ -74,20 +72,13 @@ def load_sessions():
                     # Malformed line - skip it but let the user know.
                     print(f"Skipping malformed line {line_number} in {DATA_FILE}.")
                     continue
-
                 subject, topic, date, duration_str = parts
                 try:
                     duration = float(duration_str)
                 except ValueError:
                     print(f"Skipping line {line_number} - invalid duration.")
                     continue
-
-                sessions.append({
-                    "subject": subject,
-                    "topic": topic,
-                    "date": date,
-                    "duration": duration,
-                })
+                sessions.append({"subject": subject, "topic": topic, "date": date, "duration": duration,})
     except OSError as e:
         print(f"Warning: could not read '{DATA_FILE}' ({e}). Starting with no sessions.")
 
@@ -191,7 +182,6 @@ def study_statistics(sessions):
     for session in sessions:
         subject = session["subject"]
         totals_by_subject[subject] = totals_by_subject.get(subject, 0) + session["duration"]
-
     total_minutes_overall = sum(totals_by_subject.values())
 
     print(f"Total hours studied overall: {total_minutes_overall / 60:.2f} hours\n")
