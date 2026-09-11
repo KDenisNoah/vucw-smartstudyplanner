@@ -9,7 +9,7 @@ saving its data to a file.
 """
 import os
 
-DATA_FILE = "/Users/user/My Drive/Personal/Victoria University/Course Work/ProgrammingFundamentals/study_log.txt"
+DATA_FILE = "study_log.txt"
 FIELD_SEP = "|"  # separator used when saving/loading records to/from the file
 
 
